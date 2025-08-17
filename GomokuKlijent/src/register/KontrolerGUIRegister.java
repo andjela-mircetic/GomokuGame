@@ -1,0 +1,80 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package register;
+
+import DomenskiObjekat.Korisnik;
+import DomenskiObjekat.KontrolerKlijent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import login.FXMLLoginController;
+import login.KontrolerGUILogin;
+import pocetna.*;
+
+/**
+ *
+ * @author ANDJELA
+ */
+public class KontrolerGUIRegister {
+          FXMLRegisterController fxcon;
+          
+     public KontrolerGUIRegister(FXMLRegisterController fxcon) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+        { this.fxcon = fxcon; 
+         
+          this.fxcon.registerBtn.setOnAction(e->registrujKorisnika(this.fxcon.username.getText(), this.fxcon.password.getText()));
+         
+        } 
+     
+ 
+ public void poruka(String poruka)
+ {  Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+    infoAlert.setTitle("Poruka:");
+    infoAlert.setHeaderText(null); 
+    infoAlert.setContentText(poruka); 
+    infoAlert.showAndWait();  
+ }
+ 
+  
+//      public void registrujKorisnika(String username, String password)
+// {  
+//          try {
+//              mainscreen.JFXMain mainScreen;
+//              Stage s;
+//              mainScreen = new mainscreen.JFXMain();
+//              s = new Stage();
+//              
+//              mainScreen.start(s);
+//       
+//              this.fxcon.closeStage();
+//          } catch (Exception ex) {
+//              Logger.getLogger(KontrolerGUIRegister.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+// }
+      
+       
+      public void registrujKorisnika(String username, String password)
+ {  
+          try {  
+          
+              Long kor = KontrolerKlijent.getInstance().registrujKorisnika(username, password);
+           
+                  JFXPocetna pocetna;
+                  
+                  Stage s;
+                  pocetna = new JFXPocetna();
+                  s = new Stage();
+                  
+                  pocetna.start(s);
+                  
+                  this.fxcon.closeStage();
+             
+          } catch (Exception ex) {
+    
+             poruka("Korisnik sa ovim korisnickim imenom vec postoji");
+          }
+ }
+}

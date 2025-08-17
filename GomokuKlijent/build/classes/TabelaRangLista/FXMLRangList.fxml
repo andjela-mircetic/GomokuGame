@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="TabelaRangLista.FXMLRangListController">
+   <children>
+      <Label layoutX="221.0" layoutY="14.0" text="Rang lista takmicara" />
+      <TableView fx:id="rangTabela" layoutX="23.0" layoutY="79.0" prefHeight="298.0" prefWidth="555.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="108.0" text="IDKorisnika" />
+          <TableColumn fx:id="korIme" prefWidth="224.0" text="Kor. ime" />
+            <TableColumn fx:id="brPobeda" prefWidth="117.0" text="Broj pobeda" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

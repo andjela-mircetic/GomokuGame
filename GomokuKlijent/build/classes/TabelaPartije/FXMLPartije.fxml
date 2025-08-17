@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="TabelaPartije.FXMLPartijeController">
+   <children>
+      <TableView fx:id="partijeTabela" layoutX="24.0" layoutY="126.0" prefHeight="200.0" prefWidth="553.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID igre" />
+          <TableColumn fx:id="sifra" prefWidth="97.0" text="Kod igre" />
+            <TableColumn fx:id="id1" prefWidth="120.0" text="ID prvog igraca" />
+            <TableColumn fx:id="id2" minWidth="8.0" prefWidth="134.0" text="ID drugog igraca" />
+            <TableColumn fx:id="pobednik" prefWidth="122.0" text="ID pobednika" />
+        </columns>
+      </TableView>
+      <Label layoutX="244.0" layoutY="38.0" text="Istorija igara" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" styleClass="backgroundimg" stylesheets="@CSS/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pocetna.FXMLDocumentController">
+    <children>
+        <Button fx:id="login" layoutX="195.0" layoutY="90.0" text="Login" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Button fx:id="register" layoutX="61.0" layoutY="90.0" mnemonicParsing="false" text="Registracija" />
+    </children>
+</AnchorPane>

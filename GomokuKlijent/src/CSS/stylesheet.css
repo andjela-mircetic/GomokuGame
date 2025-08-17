@@ -1,0 +1,4 @@
+.backgroundimg {
+    -fx-background-image: url("../Slike/gomokubackground.jpg");
+    -fx-background-size: 100% 100%;
+}
