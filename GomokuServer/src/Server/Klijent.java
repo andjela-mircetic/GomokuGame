@@ -14,7 +14,8 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import konstante.Operations;
+import DomenskiObjekat.Operations;
+import DomenskiObjekat.Partija;
 import TransferObjekat.ClientRequest;
 import TransferObjekat.ServerResponse;
 
@@ -188,7 +189,60 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                 }
                 
                 break;
-                
+                      case Operations.KREIRAJ_PARTIJU:
+                           Partija p = (Partija) kz.getData();
+                 {
+                    try {
+                        Long odo = KontrolerServer.getInstance().kreirajNovuPartiju(p.getIdIgrac1(), p.getSifraIgre());
+                        if (odo != null) {
+  
+                                System.out.println("partija je kreirana");
+                                response.setIsSuccess(true);
+                                response.setParameter(odo);
+                                response.setOperation(Operations.KREIRAJ_PARTIJU);
+
+                        } else {
+                            response.setIsSuccess(false);
+                            response.setParameter(odo);
+                            response.setOperation(Operations.KREIRAJ_PARTIJU);
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(Klijent.class.getName()).log(Level.SEVERE, null, ex);
+                        response.setIsSuccess(false);
+                        response.setOperation(Operations.KREIRAJ_PARTIJU);
+                        response.setE(ex);
+                    }
+                }
+                          break;
+                          
+                        case Operations.PRIDRUZI_SE_PARTIJI:
+                        
+                          Partija p1 = (Partija) kz.getData();
+                 {
+                    try {
+                        Long odo = KontrolerServer.getInstance().pridruziSeIgri(p1.getIdIgrac1(), p1.getSifraIgre());
+                        if (odo != null) {
+  
+                                System.out.println("pridruzen partiji");
+                                response.setIsSuccess(true);
+                                response.setParameter(odo);
+                                response.setOperation(Operations.PRIDRUZI_SE_PARTIJI);
+
+                        } else {
+                            response.setIsSuccess(false);
+                            response.setParameter(odo);
+                            response.setOperation(Operations.PRIDRUZI_SE_PARTIJI);
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(Klijent.class.getName()).log(Level.SEVERE, null, ex);
+                        response.setIsSuccess(false);
+                        response.setOperation(Operations.PRIDRUZI_SE_PARTIJI);
+                        response.setE(ex);
+                    }
+                }
+                          break;   
             default:
                 break;
 

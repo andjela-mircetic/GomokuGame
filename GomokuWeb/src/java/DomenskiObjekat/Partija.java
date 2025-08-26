@@ -50,7 +50,7 @@ public class Partija  implements GenerickiDomObj, Serializable {
        
     }
 
-    public Long getIdPartija() {
+    public Long getIDPartija() {
         return idPartija;
     }
 
@@ -138,17 +138,22 @@ public class Partija  implements GenerickiDomObj, Serializable {
     }
     @Override
     public String getAttributeNames() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "sifraIgre,idIgrac1"; //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+  @Override
     public String getUnknownValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "?,?"; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void prepareStatement(PreparedStatement ps, GenerickiDomObj entity) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            Partija p = (Partija) entity;
+       // ps.setLong(1, p.getIdPartija());
+        ps.setInt(1, p.getSifraIgre());
+        ps.setLong(2, p.getIdIgrac1());
+       // ps.setLong(3, p.getIdIgrac2());
+       // ps.setLong(4, p.getIdPobednik());
     }
 
     @Override

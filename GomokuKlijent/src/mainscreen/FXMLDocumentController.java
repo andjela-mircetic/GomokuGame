@@ -252,7 +252,7 @@ public class FXMLDocumentController {
     
     
     @FXML
-    public void initialize() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+    public void initialize() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
        KontrolerGUIMain kngui = new KontrolerGUIMain(this);
               
     }    

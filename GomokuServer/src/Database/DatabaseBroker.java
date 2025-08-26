@@ -6,6 +6,7 @@ package Database;
 
 
 import DomenskiObjekat.GenerickiDomObj;
+import DomenskiObjekat.Partija;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,14 +85,56 @@ public class DatabaseBroker implements IDBBroker{
     }
 
     @Override
-    public void azuriraj(GenerickiDomObj odo) throws Exception {
+    public int azuriraj(GenerickiDomObj odo) throws Exception {
         try {
             String query = "UPDATE " + odo.getTableName() + " SET " + odo.getUpdateQuery() + " WHERE id=" + odo.getID(odo);
             //System.out.println(query);
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
             odo.prepareStatement(ps, odo);
-            int updatedRow = ps.executeUpdate();
+           int updatedRow = ps.executeUpdate();
             ps.close();
+            return updatedRow;
+        } catch (Exception ex) {
+            if (DatabaseConnection.getInstance().getConnection() != null) {
+                DatabaseConnection.getInstance().getConnection().rollback();
+            }
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+    
+    @Override
+    public Long azurirajPartije(GenerickiDomObj odo) throws Exception {
+        Partija od = (Partija) odo;
+        try {
+        Long id2 = od.getIdIgrac2();
+        String query = "UPDATE " + odo.getTableName() + 
+                       " SET idIgrac2=" + id2 + 
+                       " WHERE sifraIgre=" + od.getSifraIgre() + " AND idIgrac2 IS NULL";
+        System.out.println(query);
+
+        PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+        int updated = ps.executeUpdate();
+        ps.close();
+
+        if (updated == 0) {
+            throw new Exception("Nijedna partija nije ažurirana! Možda je već zauzeta.");
+        }
+
+        String select = "SELECT idPartija FROM " + odo.getTableName() + " WHERE sifraIgre=?"; // + od.getSifraIgre();
+        PreparedStatement ps2 = DatabaseConnection.getInstance().getConnection().prepareStatement(select);
+        ps2.setLong(1, od.getSifraIgre());
+        ResultSet rs = ps2.executeQuery();
+
+        Long idPartije = null;
+        if (rs.next()) {
+            idPartije = rs.getLong("idPartija");
+        }
+
+        rs.close();
+        ps2.close();
+
+        return idPartije;
         } catch (Exception ex) {
             if (DatabaseConnection.getInstance().getConnection() != null) {
                 DatabaseConnection.getInstance().getConnection().rollback();

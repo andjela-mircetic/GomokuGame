@@ -51,6 +51,10 @@ public class KontrolerKlijent {
 
     }
     
+    public Korisnik getUlogovaniKorisnik(){
+        return ulogovaniKor;
+    }
+    
     public Korisnik ulogujKorisnika(String username, String password) throws Exception {
        
         ClientRequest kz = new ClientRequest();
@@ -118,7 +122,7 @@ public class KontrolerKlijent {
         }
     }
       
-            public List<GenerickiDomObj> prikaziPartije() throws Exception {
+        public List<GenerickiDomObj> prikaziPartije() throws Exception {
        
         ClientRequest kz = new ClientRequest();
         kz.setOperation(Operations.VRATI_SVE_PARTIJE);
@@ -138,5 +142,78 @@ public class KontrolerKlijent {
            
         }
     }
+            
+    public Long kreirajNovuPartiju(Long igrac1, int kod) throws Exception {
+     ClientRequest kz = new ClientRequest();
+        kz.setOperation(Operations.KREIRAJ_PARTIJU);
+         kz.setData(new Partija(kod, igrac1));
+        out.writeObject(kz);
+      
+        
+        ServerResponse so = (ServerResponse) in.readObject();
+        
+        if (so.isIsSuccess() == true) {
+          
+            return (Long) so.getParameter();
+            
+        } else {
+             System.out.println("Ne moze se kreirati nova partija");
+            throw so.getE();
+           
+        }
+    }
+
+    public Long pridruziSeIgri(int kod, Long igrac2) throws Exception {
+        ClientRequest kz = new ClientRequest();
+        kz.setOperation(Operations.PRIDRUZI_SE_PARTIJI);
+        Partija part = new Partija(kod, igrac2);
+        kz.setData(part);
+        
+        out.writeObject(kz);
+      
+        
+        ServerResponse so = (ServerResponse) in.readObject();
+        
+        if (so.isIsSuccess() == true) {
+          //dodaj kontroleru kod i igraca2
+            return (Long) so.getParameter();
+            
+        } else {
+             System.out.println("Ne moze se pridruziti ovoj partiji");
+            throw so.getE();
+           
+        }
+        
+    // UPDATE partija SET idigrac2=? WHERE kodIgre=? AND idigrac2 IS NULL
+    // ako uspe, vrati idPartija
+    // ako ne uspe, vrati -1
+    }
+
+    public boolean zavrsiPartiju(Long idPartija, Long idPobednika) throws Exception {
+        ClientRequest kz = new ClientRequest();
+        kz.setOperation(Operations.ZAVRSI_PARTIJU);
+        
+        out.writeObject(kz);
+      
+        
+        ServerResponse so = (ServerResponse) in.readObject();
+        
+        if (so.isIsSuccess() == true) {
+          
+            return (boolean) so.getParameter();
+            
+        } else {
+             System.out.println("Ne moze se zavrsiti partija");
+            throw so.getE();
+           
+        }
+        
+     //   i update igrac brpobeda//
+    // UPDATE partija SET idPobednika=? WHERE idPartija=?
+    }
+
+    //public void izmeniKorisnika brpobeda ili sifru(){
+    
+    //}
 }
 

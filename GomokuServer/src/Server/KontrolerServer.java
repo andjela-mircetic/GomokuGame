@@ -97,4 +97,26 @@ public class KontrolerServer {
         so.templateExecute(p);
         return ((VratiSvePartije) so).getResult();
     }
+       
+    public Long kreirajNovuPartiju(Long igrac1, int kod) throws Exception {
+
+        Partija p = new Partija(kod, igrac1);
+        SystemOperation so = new KreirajNovuPartiju();
+        
+        so.templateExecute(p);
+        return ((KreirajNovuPartiju) so).getResult();
+    }
+    
+     public Long pridruziSeIgri(Long igrac2, int kod) throws Exception {
+
+        Partija p = new Partija(kod, igrac2, 0L);
+        SystemOperation so = new PridruziSeIgri();
+        
+        so.templateExecute(p);
+        return ((PridruziSeIgri) so).getResult();
+    }
+    
+            
+        //    zavrsipartiju i izmenibrpobedakorisnika
+                    
 }

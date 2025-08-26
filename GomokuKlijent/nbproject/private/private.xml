@@ -3,36 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TransferObjekat/ClientRequest.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/login/JFXLogin.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/register/JFXRegister.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaRangLista/JFXRangLista.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaPartije/JFXPartije.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaPartije/FXMLPartijeController.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/register/FXMLRegisterController.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TransferObjekat/ServerResponse.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/login/FXMLLoginController.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/pocetna/KontrolerGUIPocetna.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/register/FXMLRegister.fxml</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaPartije/FXMLPartije.fxml</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/DomenskiObjekat/Korisnik.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/DomenskiObjekat/KontrolerKlijent.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/CSS/stylesheet.css</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/DomenskiObjekat/GenerickiDomObj.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/login/FXMLLogin.fxml</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/mainscreen/JFXMain.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/login/KontrolerGUILogin.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaRangLista/FXMLRangList.fxml</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaPartije/KontrolerGUIPartije.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/mainscreen/KontrolerGUIMain.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/mainscreen/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/register/KontrolerGUIRegister.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/DomenskiObjekat/Operations.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaRangLista/KontrolerGUIRangLista.java</file>
             <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/DomenskiObjekat/Partija.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/pocetna/JFXPocetna.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/TabelaRangLista/FXMLRangListController.java</file>
-            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuKlijent/src/pocetna/FXMLDocumentController.java</file>
         </group>
     </open-files>
 </project-private>
