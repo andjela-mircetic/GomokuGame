@@ -26,7 +26,7 @@ public class DatabaseBroker implements IDBBroker{
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
             String query = "SELECT * FROM " + odo.getTableName() + " ORDER BY " + odo.getOrderCondition();
-           // System.out.println(query);
+            System.out.println(query);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             list = odo.getList(resultSet);
@@ -46,7 +46,7 @@ public class DatabaseBroker implements IDBBroker{
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
             String query = "SELECT * FROM " + odo.getTableName() + " WHERE id=" + id;
-            //System.out.println(query);
+            System.out.println(query);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             generalEntity = odo.getResult(resultSet);
@@ -67,7 +67,7 @@ public class DatabaseBroker implements IDBBroker{
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
             String query = "INSERT INTO " + odo.getTableName() + " (" + odo.getAttributeNames() + ") VALUES(" + odo.getUnknownValues() + ")";
-            //System.out.println(query);
+            System.out.println(query);
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             odo.prepareStatement(ps, odo);
             int updatedRow = ps.executeUpdate();
@@ -87,8 +87,8 @@ public class DatabaseBroker implements IDBBroker{
     @Override
     public int azuriraj(GenerickiDomObj odo) throws Exception {
         try {
-            String query = "UPDATE " + odo.getTableName() + " SET " + odo.getUpdateQuery() + " WHERE id=" + odo.getID(odo);
-            //System.out.println(query);
+            String query = "UPDATE " + odo.getTableName() + " SET " + odo.getUpdateQuery() + " WHERE " + odo.getID(odo);
+            System.out.println(query);
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
             odo.prepareStatement(ps, odo);
            int updatedRow = ps.executeUpdate();

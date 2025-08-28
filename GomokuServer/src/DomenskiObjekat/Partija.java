@@ -175,12 +175,12 @@ public class Partija  implements GenerickiDomObj, Serializable {
 
     @Override
     public String getUpdateQuery() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return "idPobednik = " + idPobednik; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getID(GenerickiDomObj entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return "sifraIgre = " + sifraIgre; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -184,15 +184,14 @@ public class KontrolerKlijent {
            
         }
         
-    // UPDATE partija SET idigrac2=? WHERE kodIgre=? AND idigrac2 IS NULL
-    // ako uspe, vrati idPartija
-    // ako ne uspe, vrati -1
+
     }
 
-    public boolean zavrsiPartiju(Long idPartija, Long idPobednika) throws Exception {
+    public boolean zavrsiPartiju(int sifraPartije, Long idPobednika) throws Exception {
         ClientRequest kz = new ClientRequest();
         kz.setOperation(Operations.ZAVRSI_PARTIJU);
-        
+        Partija p = new Partija(0L, sifraPartije, 0L, 0L, idPobednika);
+        kz.setData(p);
         out.writeObject(kz);
       
         
@@ -208,8 +207,6 @@ public class KontrolerKlijent {
            
         }
         
-     //   i update igrac brpobeda//
-    // UPDATE partija SET idPobednika=? WHERE idPartija=?
     }
 
     //public void izmeniKorisnika brpobeda ili sifru(){

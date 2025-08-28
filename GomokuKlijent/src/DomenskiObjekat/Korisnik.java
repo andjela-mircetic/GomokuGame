@@ -8,6 +8,7 @@ package DomenskiObjekat;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -151,12 +152,13 @@ private static final long serialVersionUID = 1L;
     
     @Override
     public String getUpdateQuery() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+       return "brojPobeda = " + brojPobeda +1; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getID(GenerickiDomObj entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "idKorisnik="+ getIDKorisnik(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -166,7 +168,7 @@ private static final long serialVersionUID = 1L;
 
     @Override
     public String getOrderCondition() {
-         return "brojPobeda DESC";
+        return "brojPobeda DESC";
     }
 
    @Override
@@ -182,6 +184,4 @@ public int hashCode() {
     return Objects.hash(korisnickoIme);
 }
 }
-
-
 

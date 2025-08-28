@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import DomenskiObjekat.Operations;
 import DomenskiObjekat.Partija;
+import DomenskiObjekat.Potez;
 import TransferObjekat.ClientRequest;
 import TransferObjekat.ServerResponse;
 
@@ -242,7 +243,68 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
-                          break;   
+                          break;  
+                             case Operations.ZAVRSI_PARTIJU:
+                        
+                          Partija partpob = (Partija) kz.getData();
+                 {
+                    try {
+                        int odo = KontrolerServer.getInstance().zavrsiPartiju(partpob.getSifraIgre(), partpob.getIdPobednik());
+                        int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(partpob.getIdPobednik());
+                        if (odo != 0 && odo2 != 0) {
+  
+                                System.out.println("zavrsena partija i dodat pobednik");
+                                response.setIsSuccess(true);
+                                response.setParameter(odo);
+                                response.setOperation(Operations.ZAVRSI_PARTIJU);
+
+                        } else {
+                            response.setIsSuccess(false);
+                            response.setParameter(odo);
+                            response.setOperation(Operations.ZAVRSI_PARTIJU);
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(Klijent.class.getName()).log(Level.SEVERE, null, ex);
+                        response.setIsSuccess(false);
+                        response.setOperation(Operations.ZAVRSI_PARTIJU);
+                        response.setE(ex);
+                    }
+                }
+                          break;  
+                          
+                case Operations.ODIGRAJ_POTEZ:
+                        int kodIgre = KontrolerServer.getInstance().kodPartije;
+                          Potez potez = (Potez) kz.getData();
+                 {
+                    try {
+                        int rezultat = KontrolerServer.getInstance().odigrajPotez(potez.idKorisnika, potez.x, potez.y);
+                        if(rezultat == 3) {
+                            int odo = KontrolerServer.getInstance().zavrsiPartiju(kodIgre, potez.idKorisnika);
+                             int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(potez.idKorisnika);
+                        }
+                        if (rezultat != 0) {
+                            Potez prez = new Potez(potez.x, potez.y, potez.idKorisnika, rezultat);
+                                System.out.println("odigran potez");
+                                response.setIsSuccess(true);
+                                response.setParameter(prez);
+                                response.setOperation(Operations.ODIGRAJ_POTEZ);
+
+                        } else {
+                            response.setIsSuccess(false);
+                            response.setParameter(rezultat);
+                            response.setOperation(Operations.ODIGRAJ_POTEZ);
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(Klijent.class.getName()).log(Level.SEVERE, null, ex);
+                        response.setIsSuccess(false);
+                        response.setOperation(Operations.ODIGRAJ_POTEZ);
+                        response.setE(ex);
+                    }
+                }
+                          break;  
+                          
             default:
                 break;
 

@@ -152,12 +152,13 @@ private static final long serialVersionUID = 1L;
     
     @Override
     public String getUpdateQuery() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+       return "brojPobeda = " + brojPobeda +1; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getID(GenerickiDomObj entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "idKorisnik="+ getIDKorisnik(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

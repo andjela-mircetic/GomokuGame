@@ -30,9 +30,9 @@ import login.FXMLLoginController;
 public class KontrolerGUIMain {
     FXMLDocumentController fxcon;
            
-    Button[][] tabla = new Button[10][10];
-    char[][] stanje = new char[10][10]; // X/O ili '\0'
-    char trenutniIgrac = 'X';
+   // Button[][] tabla = new Button[10][10];
+   // char[][] stanje = new char[10][10]; // X/O ili '\0'
+   // char trenutniIgrac = 'X';
 
     private int kodIgre;
     private Long idPartija;
@@ -107,47 +107,47 @@ public class KontrolerGUIMain {
   
   //KOD--------------------------------------------------------------------------------------------
   
-  private void inicijalizujTablu() throws Exception {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                Field f = fxcon.getClass().getDeclaredField("p" + i + j);
-                tabla[i][j] = (Button) f.get(fxcon);
-                int finalI = i, finalJ = j;
-                tabla[i][j].setOnAction(ev -> odigrajPotez(finalI, finalJ));
-            }
-        }
-    }
+//  private void inicijalizujTablu() throws Exception {
+//        for (int i = 0; i < 10; i++) {
+//            for (int j = 0; j < 10; j++) {
+//                Field f = fxcon.getClass().getDeclaredField("p" + i + j);
+//                tabla[i][j] = (Button) f.get(fxcon);
+//                int finalI = i, finalJ = j;
+//                tabla[i][j].setOnAction(ev -> odigrajPotez(finalI, finalJ));
+//            }
+//        }
+//    }
 
-    private void odigrajPotez(int i, int j) {
-        if (stanje[i][j] != '\0') return;
-
-        stanje[i][j] = trenutniIgrac;
-        tabla[i][j].setText(String.valueOf(trenutniIgrac));
-
-        if (proveriPobednika(i, j, trenutniIgrac)) {
-            zavrsiIgruSaPobednikom(trenutniIgrac);
-            return;
-        }
-
-        trenutniIgrac = (trenutniIgrac == 'X') ? 'O' : 'X';
-    }
-
-    private boolean proveriPobednika(int row, int col, char igrac) {
-        int[][] dirs = {{1,0},{0,1},{1,1},{1,-1}};
-        for (int[] d : dirs) {
-            int count = 1;
-            int r = row + d[0], c = col + d[1];
-            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
-                count++; r += d[0]; c += d[1];
-            }
-            r = row - d[0]; c = col - d[1];
-            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
-                count++; r -= d[0]; c -= d[1];
-            }
-            if (count >= 5) return true;
-        }
-        return false;
-    }
+//    private void odigrajPotez(int i, int j) {
+//        if (stanje[i][j] != '\0') return;
+//
+//        stanje[i][j] = trenutniIgrac;
+//        tabla[i][j].setText(String.valueOf(trenutniIgrac));
+//
+//        if (proveriPobednika(i, j, trenutniIgrac)) {
+//            zavrsiIgruSaPobednikom(trenutniIgrac);
+//            return;
+//        }
+//
+//        trenutniIgrac = (trenutniIgrac == 'X') ? 'O' : 'X';
+//    }
+//
+//    private boolean proveriPobednika(int row, int col, char igrac) {
+//        int[][] dirs = {{1,0},{0,1},{1,1},{1,-1}};
+//        for (int[] d : dirs) {
+//            int count = 1;
+//            int r = row + d[0], c = col + d[1];
+//            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
+//                count++; r += d[0]; c += d[1];
+//            }
+//            r = row - d[0]; c = col - d[1];
+//            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
+//                count++; r -= d[0]; c -= d[1];
+//            }
+//            if (count >= 5) return true;
+//        }
+//        return false;
+//    }
 
     // ------------------ NOVA IGRA ------------------
 
@@ -225,7 +225,7 @@ public class KontrolerGUIMain {
     private void zavrsiIgruSaPobednikom(char pobednik) {
         try {
             Long pobednikID = (pobednik == 'X') ? igrac1 : igrac2;
-            KontrolerKlijent.getInstance().zavrsiPartiju(idPartija, pobednikID);
+            KontrolerKlijent.getInstance().zavrsiPartiju(kodIgre, pobednikID);
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Kraj igre");
@@ -249,8 +249,6 @@ public class KontrolerGUIMain {
         infoAlert.showAndWait();
         fxcon.closeStage();
     }
-
-    // tvoj kod za rang listu i istoriju ostaje isti...
 
  
 }
