@@ -90,7 +90,7 @@ public class DatabaseBroker implements IDBBroker{
             String query = "UPDATE " + odo.getTableName() + " SET " + odo.getUpdateQuery() + " WHERE " + odo.getID(odo);
             System.out.println(query);
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            odo.prepareStatement(ps, odo);
+           // odo.prepareStatement(ps, odo);
            int updatedRow = ps.executeUpdate();
             ps.close();
             return updatedRow;
@@ -121,9 +121,9 @@ public class DatabaseBroker implements IDBBroker{
             throw new Exception("Nijedna partija nije ažurirana! Možda je već zauzeta.");
         }
 
-        String select = "SELECT idPartija FROM " + odo.getTableName() + " WHERE sifraIgre=?"; // + od.getSifraIgre();
+        String select = "SELECT idPartija FROM " + odo.getTableName() + " WHERE sifraIgre=" + od.getSifraIgre();
         PreparedStatement ps2 = DatabaseConnection.getInstance().getConnection().prepareStatement(select);
-        ps2.setLong(1, od.getSifraIgre());
+       // ps2.setLong(1, od.getSifraIgre());
         ResultSet rs = ps2.executeQuery();
 
         Long idPartije = null;

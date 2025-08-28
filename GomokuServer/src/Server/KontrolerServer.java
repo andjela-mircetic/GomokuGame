@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import so.SystemOperation;
 
 /**
@@ -111,6 +112,7 @@ public class KontrolerServer {
         
         so.templateExecute(p);
         kodPartije = kod;
+        idIgrac1 = igrac1;
         return ((KreirajNovuPartiju) so).getResult();
     }
     
@@ -120,11 +122,16 @@ public class KontrolerServer {
         SystemOperation so = new PridruziSeIgri();
         
         so.templateExecute(p);
+        idIgrac2 = igrac2;
         return ((PridruziSeIgri) so).getResult();
     }
     
-     public int zavrsiPartiju(int kod, Long idPobednika) throws Exception {
+     public int zavrsiPartiju(int kod, Long idGubitnika) throws Exception {
+        // Long idPobednika = idGubitnika == idIgrac1 ? idIgrac2 : idIgrac1; NE RADI
+         Long idPobednika = Objects.equals(idGubitnika, idIgrac1) ? idIgrac2 : idIgrac1;
+
           Partija p = new Partija(0L, kod, 0L, 0L, idPobednika);
+          idPobednik = idPobednika;
         SystemOperation so = new ZavrsiPartiju();
         
         so.templateExecute(p);

@@ -16,6 +16,7 @@ public class Operations {
  public static final int KREIRAJ_PARTIJU = 5;
  public static final int PRIDRUZI_SE_PARTIJI = 6;
  public static final int ZAVRSI_PARTIJU = 7;
+  public static final int ODIGRAJ_POTEZ = 8;
     //public static final int SACUVAJ_ZIVOTINJU = 2;
    // public static final int SACUVAJ_VET = 3;
    // public static final int SACUVAJ_TERMIN = 4;

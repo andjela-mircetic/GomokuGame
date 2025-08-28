@@ -187,10 +187,10 @@ public class KontrolerKlijent {
 
     }
 
-    public boolean zavrsiPartiju(int sifraPartije, Long idPobednika) throws Exception {
+    public int zavrsiPartiju(int sifraPartije, Long idGubitnika) throws Exception {
         ClientRequest kz = new ClientRequest();
         kz.setOperation(Operations.ZAVRSI_PARTIJU);
-        Partija p = new Partija(0L, sifraPartije, 0L, 0L, idPobednika);
+        Partija p = new Partija(0L, sifraPartije, 0L, 0L, idGubitnika);
         kz.setData(p);
         out.writeObject(kz);
       
@@ -199,7 +199,7 @@ public class KontrolerKlijent {
         
         if (so.isIsSuccess() == true) {
           
-            return (boolean) so.getParameter();
+            return (int) so.getParameter();
             
         } else {
              System.out.println("Ne moze se zavrsiti partija");

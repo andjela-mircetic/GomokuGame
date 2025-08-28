@@ -250,7 +250,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                  {
                     try {
                         int odo = KontrolerServer.getInstance().zavrsiPartiju(partpob.getSifraIgre(), partpob.getIdPobednik());
-                        int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(partpob.getIdPobednik());
+                        int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(KontrolerServer.getInstance().idPobednik);
                         if (odo != 0 && odo2 != 0) {
   
                                 System.out.println("zavrsena partija i dodat pobednik");

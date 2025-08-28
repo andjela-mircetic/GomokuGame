@@ -39,6 +39,7 @@ public class KontrolerGUIMain {
     private Long igrac1;
     private Long igrac2;
     private Long trenutniKorisnik;
+    char oznakaIgraca;
           
           
           
@@ -48,7 +49,7 @@ public class KontrolerGUIMain {
        // inicijalizujTablu();
         
         
-          this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPorukom("Zavrsava se igra"));
+          this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPobednikom());
          this.fxcon.ranglista.setOnAction(e->prikaziRangListu());
            this.fxcon.istorija.setOnAction(e->prikaziIstorijuIgara());
             this.fxcon.zapocninovuigru.setOnAction(e -> zapocniNovuIgru());
@@ -152,13 +153,14 @@ public class KontrolerGUIMain {
     // ------------------ NOVA IGRA ------------------
 
     private void zapocniNovuIgru() {
-        kodIgre = generisiRandomKod(6);
+        int kodIgre2 = generisiRandomKod(6);
         trenutniKorisnik = KontrolerKlijent.getInstance().getUlogovaniKorisnik().getIDKorisnik();
         try {
-            idPartija = KontrolerKlijent.getInstance().kreirajNovuPartiju(trenutniKorisnik, kodIgre);
+            idPartija = KontrolerKlijent.getInstance().kreirajNovuPartiju(trenutniKorisnik, kodIgre2);
             igrac1 = trenutniKorisnik;
             igrac2 = 0L;
-
+            kodIgre = kodIgre2;
+            oznakaIgraca = 'X';
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Nova igra");
             info.setHeaderText(null);
@@ -195,7 +197,8 @@ public class KontrolerGUIMain {
                 if (idPartija > 0) {
                     kodIgre = kod;
                     igrac2 = trenutniKorisnik;
-
+                    igrac1= 0L;
+                    oznakaIgraca = 'O';
                     Alert info = new Alert(Alert.AlertType.INFORMATION);
                     info.setTitle("Pridruživanje");
                     info.setHeaderText(null);
@@ -215,22 +218,35 @@ public class KontrolerGUIMain {
         });
     }
 
-    // ------------------ NAPUŠTANJE IGRE ------------------
 
-    private void napustiIgru() {
-        char pobednik = (trenutniIgrac == 'X') ? 'O' : 'X'; // drugi igrač pobeđuje
-        zavrsiIgruSaPobednikom(pobednik);
-    }
-
-    private void zavrsiIgruSaPobednikom(char pobednik) {
+    private void zavrsiIgruSaPobednikom() {
         try {
-            Long pobednikID = (pobednik == 'X') ? igrac1 : igrac2;
-            KontrolerKlijent.getInstance().zavrsiPartiju(kodIgre, pobednikID);
+           // Long gubitnikID = igrac1 == 0L ? igrac2 : igrac1;
+            if (igrac1 == null && igrac2 == null) {
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Nema aktivne igre");
+            info.setHeaderText(null);
+            info.setContentText("Niste započeli ili se pridružili nijednoj igri.");
+            info.showAndWait();
+            return;
+        }
+
+        Long gubitnikID = (igrac1 != null && igrac1 == 0L) ? igrac2 : igrac1;
+            
+            if (kodIgre != 0) {
+            KontrolerKlijent.getInstance().zavrsiPartiju(kodIgre, gubitnikID);}
+            else {
+              Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Ne moze se zavrsiti igra jer nije ni zapoceta");
+            info.setHeaderText(null);
+            info.setContentText("Ne moze se zavrsiti igra jer nije ni zapoceta.");
+            info.showAndWait();
+            }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Kraj igre");
             info.setHeaderText(null);
-            info.setContentText("Pobednik je: " + pobednik);
+            info.setContentText("Napustili ste igru. Pobedio je protivnik.");
             info.showAndWait();
 
             fxcon.closeStage();
@@ -239,16 +255,15 @@ public class KontrolerGUIMain {
         }
     }
 
-    // ------------------ POMOĆNE ------------------
 
-    public void zavrsiIgruSaPorukom2(String poruka) {
-        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-        infoAlert.setTitle("Poruka");
-        infoAlert.setHeaderText(null);
-        infoAlert.setContentText(poruka);
-        infoAlert.showAndWait();
-        fxcon.closeStage();
-    }
+//    public void zavrsiIgruSaPorukom2(String poruka) {
+//        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+//        infoAlert.setTitle("Poruka");
+//        infoAlert.setHeaderText(null);
+//        infoAlert.setContentText(poruka);
+//        infoAlert.showAndWait();
+//        fxcon.closeStage();
+//    }
 
  
 }

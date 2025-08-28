@@ -18,13 +18,19 @@ public class Potez implements GenerickiDomObj, Serializable {
     public int x;
     public int y;
     public Long idKorisnika;
+    public int rezultat;
     
     public Potez(int x, int y, Long idKor) {
         this.x = x;
         this.y = y;
         this.idKorisnika = idKor;
-        
-        
+    }
+    
+     public Potez(int x, int y, Long idKor, int rez) {
+        this.x = x;
+        this.y = y;
+        this.idKorisnika = idKor;
+        this.rezultat = rez;
     }
 
     @Override
