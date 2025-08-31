@@ -37,24 +37,7 @@ public class KontrolerGUIRegister {
     infoAlert.setContentText(poruka); 
     infoAlert.showAndWait();  
  }
- 
-  
-//      public void registrujKorisnika(String username, String password)
-// {  
-//          try {
-//              mainscreen.JFXMain mainScreen;
-//              Stage s;
-//              mainScreen = new mainscreen.JFXMain();
-//              s = new Stage();
-//              
-//              mainScreen.start(s);
-//       
-//              this.fxcon.closeStage();
-//          } catch (Exception ex) {
-//              Logger.getLogger(KontrolerGUIRegister.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-// }
-      
+
        
       public void registrujKorisnika(String username, String password)
  {  

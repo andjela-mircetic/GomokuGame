@@ -35,10 +35,6 @@ import login.FXMLLoginController;
 
 public class KontrolerGUIMain {
     FXMLDocumentController fxcon;
-           
-   // Button[][] tabla = new Button[10][10];
-   // char[][] stanje = new char[10][10]; // X/O ili '\0'
-   // char trenutniIgrac = 'X';
 
     private int kodIgre;
     private Long idPartija;
@@ -52,21 +48,7 @@ public class KontrolerGUIMain {
           
      public KontrolerGUIMain(FXMLDocumentController fxcon) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception
         { this.fxcon = fxcon; 
-         
-       
-//       for (Node node : fxcon.tablica.getChildren()) {
-//    if (node instanceof Button) {
-//        Button dugme = (Button) node;
-//        dugme.setOnAction(event -> {
-//            String id = dugme.getId(); // npr. "p37"
-//            try {
-//                odigrajPotez(id, dugme);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//    }
-//}
+
         
         this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPobednikom());
         this.fxcon.ranglista.setOnAction(e->prikaziRangListu());
@@ -75,7 +57,7 @@ public class KontrolerGUIMain {
         this.fxcon.pridruziseigri.setOnAction(e -> pridruziSeIgri());
         
         KontrolerKlijent.getInstance().setAsyncListener(so -> {
-    Platform.runLater(() -> { // JavaFX UI update
+    Platform.runLater(() -> { 
         switch (so.getOperation()) {
             case Operations.ZAVRSI_PARTIJU:
                 if (so.isIsSuccess() && zavrsiPartijuFlag == false && zavrsi == false) {
@@ -123,7 +105,7 @@ public class KontrolerGUIMain {
                     info.setContentText("Protivnik je pobedio!");
                     info.showAndWait();
                     
-                   // onaj exit?
+         
                 }
             } catch (IllegalArgumentException ex) {
                 Logger.getLogger(KontrolerGUIMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -210,17 +192,17 @@ public class KontrolerGUIMain {
   public void odigrajPotez(String poljeId, Button polje) throws Exception {
       if (kodIgre == 0) {
           return; } 
-    // npr. poljeId = "p37"
-    int index = Integer.parseInt(poljeId.substring(1)); // 37
+
+    int index = Integer.parseInt(poljeId.substring(1)); 
     int red = index / 10;
     int kolona = index % 10;
      zauzetaPolja.add(poljeId);
 
-     polje.setText("" + oznakaIgraca); // ili "O", zavisno od igrača
-    polje.setDisable(true); // više ne može da se klikne
+     polje.setText("" + oznakaIgraca); 
+    polje.setDisable(true);
     
-    // šaljemo serveru potez
-    Potez p = KontrolerKlijent.getInstance().posaljiPotez(kodIgre, red, kolona); //ovde primamo samo ako smo mi odigrali potez
+  
+    Potez p = KontrolerKlijent.getInstance().posaljiPotez(kodIgre, red, kolona); 
     if(p.rezultat == 3) {
          Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
     infoAlert.setTitle("Poruka:");
@@ -228,71 +210,10 @@ public class KontrolerGUIMain {
     infoAlert.setContentText("Pobedili ste, igra je zavrsena!"); 
     infoAlert.showAndWait();  
     
-    this.fxcon.closeStage(); // da li treba ovo
+    this.fxcon.closeStage(); 
     }
-    
-    
    
 }
-
-//  public void prikaziProtivnikovPotez(int red, int kolona) {
-//    Platform.runLater(() -> {
-//        try {
-//            String poljeId = "p" + (red * 10 + kolona);
-//            Field f = FXMLDocumentController.class.getDeclaredField(poljeId);
-//            f.setAccessible(true);
-//            Button polje = (Button) f.get(fxcon);
-//            char znak = oznakaIgraca == 'X' ? 'O' : 'X';
-//            polje.setText("" + znak);
-//            polje.setDisable(true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    });
-//}
-
-//  private void inicijalizujTablu() throws Exception {
-//        for (int i = 0; i < 10; i++) {
-//            for (int j = 0; j < 10; j++) {
-//                Field f = fxcon.getClass().getDeclaredField("p" + i + j);
-//                tabla[i][j] = (Button) f.get(fxcon);
-//                int finalI = i, finalJ = j;
-//                tabla[i][j].setOnAction(ev -> odigrajPotez(finalI, finalJ));
-//            }
-//        }
-//    }
-
-//    private void odigrajPotez(int i, int j) {
-//        if (stanje[i][j] != '\0') return;
-//
-//        stanje[i][j] = trenutniIgrac;
-//        tabla[i][j].setText(String.valueOf(trenutniIgrac));
-//
-//        if (proveriPobednika(i, j, trenutniIgrac)) {
-//            zavrsiIgruSaPobednikom(trenutniIgrac);
-//            return;
-//        }
-//
-//        trenutniIgrac = (trenutniIgrac == 'X') ? 'O' : 'X';
-//    }
-//
-//    private boolean proveriPobednika(int row, int col, char igrac) {
-//        int[][] dirs = {{1,0},{0,1},{1,1},{1,-1}};
-//        for (int[] d : dirs) {
-//            int count = 1;
-//            int r = row + d[0], c = col + d[1];
-//            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
-//                count++; r += d[0]; c += d[1];
-//            }
-//            r = row - d[0]; c = col - d[1];
-//            while (r >= 0 && r < 10 && c >= 0 && c < 10 && stanje[r][c] == igrac) {
-//                count++; r -= d[0]; c -= d[1];
-//            }
-//            if (count >= 5) return true;
-//        }
-//        return false;
-//    }
-
 
     private void zapocniNovuIgru() {
         int kodIgre2 = generisiRandomKod(6);
@@ -361,7 +282,7 @@ public class KontrolerGUIMain {
     boolean zavrsi = false;
     private void zavrsiIgruSaPobednikom() {
         try {
-           // Long gubitnikID = igrac1 == 0L ? igrac2 : igrac1;
+           
             if (igrac1 == null && igrac2 == null) {
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Nema aktivne igre");

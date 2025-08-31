@@ -249,7 +249,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
                         response.setE(ex);
                     }
                 }
-                 //KontrolerServer.getInstance().broadcast2(response, this);
+            
                  
                  KontrolerServer.getInstance().broadcast(response);
                           break;  

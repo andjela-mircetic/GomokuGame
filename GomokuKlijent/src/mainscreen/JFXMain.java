@@ -19,6 +19,11 @@ import javafx.stage.Stage;
  */
 public class JFXMain extends Application {
          FXMLDocumentController con;
+           private String korisnickoIme; 
+
+    public void setKorisnickoIme(String ime) {
+        this.korisnickoIme = ime;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -30,19 +35,15 @@ public class JFXMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mainscreen/FXMLDocument.fxml"));
          
         Parent root = fxmlLoader.load();
-        
-        
-       // FXMLLoader fxmlLoader = new FXMLLoader(location);
-        // System.out.println("main ovde 2");
-        //Parent root = fxmlLoader.load();
+       
           
         con = (FXMLDocumentController) fxmlLoader.getController();
         con.setStage(stage);
-         System.out.println("111111111111111111 jfxmain ovde 2");
+       
         Scene scene = new Scene(root);
         scene.getStylesheets().add("CSS/stylesheet.css");
         stage.setScene(scene);
-        stage.setTitle("main");
+        stage.setTitle("Ulogovani korisnik:" + korisnickoIme );
         stage.show();
         
     }
