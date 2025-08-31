@@ -55,14 +55,14 @@ class Klijent extends Thread {
             if (object instanceof ClientRequest) {
                 ClientRequest kz = (ClientRequest) object;
                 ServerResponse so = obradiZahtev(kz);
-                posaljiOdgovor(soketS, so);
+               // posaljiOdgovor(so);
             }
         }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-private ServerResponse obradiZahtev(ClientRequest kz) {
+private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
         int operacija = kz.getOperation();
         ServerResponse response = new ServerResponse();
 
@@ -89,6 +89,8 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                                 response.setIsSuccess(true);
                                 response.setParameter(odo);
                                 response.setOperation(Operations.ULOGUJ_KORISNIKA);
+                                
+                                
                             } else {
                                 Exception e = new Exception("Korisnik sa tim parametrima je vec ulogovan!");
                                 response.setIsSuccess(false);
@@ -108,6 +110,8 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
+                 
+                 posaljiOdgovor(response);
                 break;
             case Operations.REGISTRUJ_KORISNIKA:
                   Korisnik k2 = (Korisnik) kz.getData();
@@ -134,7 +138,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
-                
+                 posaljiOdgovor(response);
                 break;
                  case Operations.PRIKAZI_RANG:
                 
@@ -161,7 +165,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
-                
+                 posaljiOdgovor(response);
                 break;
                       case Operations.VRATI_SVE_PARTIJE:
                 
@@ -188,7 +192,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
-                
+                 posaljiOdgovor(response);
                 break;
                       case Operations.KREIRAJ_PARTIJU:
                            Partija p = (Partija) kz.getData();
@@ -215,6 +219,8 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
+                 
+                  posaljiOdgovor(response);
                           break;
                           
                         case Operations.PRIDRUZI_SE_PARTIJI:
@@ -243,6 +249,9 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
+                 //KontrolerServer.getInstance().broadcast2(response, this);
+                 
+                 KontrolerServer.getInstance().broadcast(response);
                           break;  
                              case Operations.ZAVRSI_PARTIJU:
                         
@@ -271,6 +280,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
+                  KontrolerServer.getInstance().broadcast(response);
                           break;  
                           
                 case Operations.ODIGRAJ_POTEZ:
@@ -303,6 +313,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
                         response.setE(ex);
                     }
                 }
+                  KontrolerServer.getInstance().broadcast(response);
                           break;  
                           
             default:
@@ -313,7 +324,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) {
         return response;
     }
 
-    private void posaljiOdgovor(Socket socket, ServerResponse so) throws IOException {
+     void posaljiOdgovor(ServerResponse so) throws IOException {
         out.writeObject(so);
     }
     

@@ -9,11 +9,15 @@ import DomenskiObjekat.GenerickiDomObj;
 import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.Partija;
 import SO.*;
+import TransferObjekat.ServerResponse;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import so.SystemOperation;
 
 /**
@@ -160,7 +164,7 @@ public class KontrolerServer {
 
         if (tabla[x][y] != 0) {
             // već zauzeto mesto
-            return -1; // možeš ovako javiti da je potez nevalidan
+            return -1; // potez nevalidan
         }
 
         // upiši potez
@@ -176,7 +180,7 @@ public class KontrolerServer {
            
 
         private boolean proveriPobedu(int x, int y, int simbol) {
-        // Proveri 4 smera: horizontalno, vertikalno, dijagonala / i dijagonala \
+        
         return (count(x, y, 1, 0, simbol) + count(x, y, -1, 0, simbol) - 1 >= 5) ||
                (count(x, y, 0, 1, simbol) + count(x, y, 0, -1, simbol) - 1 >= 5) ||
                (count(x, y, 1, 1, simbol) + count(x, y, -1, -1, simbol) - 1 >= 5) ||
@@ -193,6 +197,29 @@ public class KontrolerServer {
         return cnt;
     }    
     
+    public void broadcast(ServerResponse so) {
+    for (Klijent k : lkl) {
+        if (k != null) {
+            try {
+                k.posaljiOdgovor(so);
+            } catch (IOException ex) {
+                Logger.getLogger(KontrolerServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+}
+    
+    public void broadcast2(ServerResponse response, Klijent sender) {
+    for (Klijent k : lkl) {
+        if (k != sender) { // pošalji svima osim pošiljaocu
+            try {
+                k.posaljiOdgovor(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
     
     //server treba da obavesti sve kljente u slucju:
     //dodat drugi igrac, zavrsi igru, odigraj potez

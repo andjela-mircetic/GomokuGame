@@ -8,6 +8,7 @@ package mainscreen;
 import DomenskiObjekat.GenerickiDomObj;
 import DomenskiObjekat.KontrolerKlijent;
 import DomenskiObjekat.Korisnik;
+import DomenskiObjekat.Operations;
 import DomenskiObjekat.Partija;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
@@ -40,7 +42,8 @@ public class KontrolerGUIMain {
     private Long igrac2;
     private Long trenutniKorisnik;
     char oznakaIgraca;
-          
+    boolean zavrsiPartijuFlag = false;
+    boolean korisnikSePridruzioFlag = false;
           
           
      public KontrolerGUIMain(FXMLDocumentController fxcon) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception
@@ -48,12 +51,48 @@ public class KontrolerGUIMain {
          
        // inicijalizujTablu();
         
-        
-          this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPobednikom());
-         this.fxcon.ranglista.setOnAction(e->prikaziRangListu());
-           this.fxcon.istorija.setOnAction(e->prikaziIstorijuIgara());
-            this.fxcon.zapocninovuigru.setOnAction(e -> zapocniNovuIgru());
+        this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPobednikom());
+        this.fxcon.ranglista.setOnAction(e->prikaziRangListu());
+        this.fxcon.istorija.setOnAction(e->prikaziIstorijuIgara());
+        this.fxcon.zapocninovuigru.setOnAction(e -> zapocniNovuIgru());
         this.fxcon.pridruziseigri.setOnAction(e -> pridruziSeIgri());
+        
+        KontrolerKlijent.getInstance().setAsyncListener(so -> {
+    Platform.runLater(() -> { // JavaFX UI update
+        switch (so.getOperation()) {
+            case Operations.ZAVRSI_PARTIJU:
+                if (so.isIsSuccess() && zavrsiPartijuFlag == false && zavrsi == false) {
+                    zavrsiPartijuFlag = true;
+                    Alert info = new Alert(Alert.AlertType.INFORMATION);
+                    info.setTitle("Kraj igre");
+                    info.setHeaderText(null);
+                    info.setContentText("Korisnik je predao igru, pobedili ste! ");
+                    info.showAndWait();
+                }
+                break;
+
+            case Operations.PRIDRUZI_SE_PARTIJI:
+                if (so.isIsSuccess() && korisnikSePridruzioFlag == false && !igrac2.equals(0L)) {
+                    korisnikSePridruzioFlag = true;
+                    Alert info = new Alert(Alert.AlertType.INFORMATION);
+                    info.setTitle("Protivnik se pridružio");
+                    info.setHeaderText(null);
+                    info.setContentText("Protivnik se uspešno pridružio!");
+                    info.showAndWait();
+                }
+                break;
+
+            case Operations.ODIGRAJ_POTEZ:
+                if (so.isIsSuccess()) {
+                    // npr. ažuriraj tablu
+                    System.out.println("Protivnik odigrao potez: " + so.getParameter());
+                    //osveziTablu(so.getParameter()); 
+                }
+                break;
+        }
+    });
+});
+
         } 
      
  
@@ -105,8 +144,7 @@ public class KontrolerGUIMain {
         ex.printStackTrace();
     }
 }
-  
-  //KOD--------------------------------------------------------------------------------------------
+ 
   
 //  private void inicijalizujTablu() throws Exception {
 //        for (int i = 0; i < 10; i++) {
@@ -150,7 +188,6 @@ public class KontrolerGUIMain {
 //        return false;
 //    }
 
-    // ------------------ NOVA IGRA ------------------
 
     private void zapocniNovuIgru() {
         int kodIgre2 = generisiRandomKod(6);
@@ -179,8 +216,6 @@ public class KontrolerGUIMain {
     int max = (int) Math.pow(10, duzina) - 1; 
     return rnd.nextInt(max - min + 1) + min;
 }
-
-    // ------------------ PRIDRUŽIVANJE ------------------
 
     private void pridruziSeIgri() {
         trenutniKorisnik = KontrolerKlijent.getInstance().getUlogovaniKorisnik().getIDKorisnik();
@@ -218,7 +253,7 @@ public class KontrolerGUIMain {
         });
     }
 
-
+    boolean zavrsi = false;
     private void zavrsiIgruSaPobednikom() {
         try {
            // Long gubitnikID = igrac1 == 0L ? igrac2 : igrac1;
@@ -234,6 +269,7 @@ public class KontrolerGUIMain {
         Long gubitnikID = (igrac1 != null && igrac1 == 0L) ? igrac2 : igrac1;
             
             if (kodIgre != 0) {
+                zavrsi = true;
             KontrolerKlijent.getInstance().zavrsiPartiju(kodIgre, gubitnikID);}
             else {
               Alert info = new Alert(Alert.AlertType.INFORMATION);
@@ -254,16 +290,6 @@ public class KontrolerGUIMain {
             ex.printStackTrace();
         }
     }
-
-
-//    public void zavrsiIgruSaPorukom2(String poruka) {
-//        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-//        infoAlert.setTitle("Poruka");
-//        infoAlert.setHeaderText(null);
-//        infoAlert.setContentText(poruka);
-//        infoAlert.showAndWait();
-//        fxcon.closeStage();
-//    }
 
  
 }
