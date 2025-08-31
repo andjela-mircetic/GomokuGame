@@ -225,7 +225,7 @@ public class KontrolerServer {
     //dodat drugi igrac, zavrsi igru, odigraj potez
     //implementiraj kako korisnik zna koji je igrac napustio igru
     //prvo disable dugme pa salji request
-    //javi se pitaj za iskustva
+    
     //neki odvojeni listener koji uvek slusa sve zahteve? 3 tipa = dodat vam je suparnik, pobedili ste jer je izasao, izgubili ste jer je dobar potez drugog
     //kako da zna dal je x ili o, server zna jel je on id1 ili 2, i on zna jer se pridruzio ?  isto ima jedan id null
     //kako cu znati koju poziciju je kliknuo

@@ -253,7 +253,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
                  
                  KontrolerServer.getInstance().broadcast(response);
                           break;  
-                             case Operations.ZAVRSI_PARTIJU:
+                 case Operations.ZAVRSI_PARTIJU:
                         
                           Partija partpob = (Partija) kz.getData();
                  {
@@ -291,7 +291,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
                         int rezultat = KontrolerServer.getInstance().odigrajPotez(potez.idKorisnika, potez.x, potez.y);
                         if(rezultat == 3) {
                             int odo = KontrolerServer.getInstance().zavrsiPartiju(kodIgre, potez.idKorisnika);
-                             int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(potez.idKorisnika);
+                            int odo2 = KontrolerServer.getInstance().povecajBrPobedaKorisniku(potez.idKorisnika);
                         }
                         if (rezultat != 0) {
                             Potez prez = new Potez(potez.x, potez.y, potez.idKorisnika, rezultat);
@@ -299,7 +299,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
                                 response.setIsSuccess(true);
                                 response.setParameter(prez);
                                 response.setOperation(Operations.ODIGRAJ_POTEZ);
-
+                                
                         } else {
                             response.setIsSuccess(false);
                             response.setParameter(rezultat);

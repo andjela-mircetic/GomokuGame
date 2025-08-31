@@ -10,14 +10,18 @@ import DomenskiObjekat.KontrolerKlijent;
 import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.Operations;
 import DomenskiObjekat.Partija;
+import DomenskiObjekat.Potez;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
@@ -49,7 +53,20 @@ public class KontrolerGUIMain {
      public KontrolerGUIMain(FXMLDocumentController fxcon) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception
         { this.fxcon = fxcon; 
          
-       // inicijalizujTablu();
+       
+//       for (Node node : fxcon.tablica.getChildren()) {
+//    if (node instanceof Button) {
+//        Button dugme = (Button) node;
+//        dugme.setOnAction(event -> {
+//            String id = dugme.getId(); // npr. "p37"
+//            try {
+//                odigrajPotez(id, dugme);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
+//}
         
         this.fxcon.Izlaz.setOnAction(e->zavrsiIgruSaPobednikom());
         this.fxcon.ranglista.setOnAction(e->prikaziRangListu());
@@ -84,9 +101,39 @@ public class KontrolerGUIMain {
 
             case Operations.ODIGRAJ_POTEZ:
                 if (so.isIsSuccess()) {
-                    // npr. ažuriraj tablu
-                    System.out.println("Protivnik odigrao potez: " + so.getParameter());
-                    //osveziTablu(so.getParameter()); 
+            try {
+                Potez protivnikov = (Potez) so.getParameter();
+              String poljeId = String.format("p%02d", protivnikov.x * 10 + protivnikov.y);
+                    if (zauzetaPolja.contains(poljeId)) {
+                 break;
+                 }
+
+                 zauzetaPolja.add(poljeId);
+                Field f = FXMLDocumentController.class.getDeclaredField(poljeId);
+                f.setAccessible(true);
+                Button polje = (Button) f.get(fxcon);
+                char znak = oznakaIgraca == 'X' ? 'O' : 'X';
+                polje.setText("" + znak);
+                polje.setDisable(true);
+                
+                if (protivnikov.rezultat == 3){
+                         Alert info = new Alert(Alert.AlertType.INFORMATION);
+                    info.setTitle("Izgubili ste");
+                    info.setHeaderText(null);
+                    info.setContentText("Protivnik je pobedio!");
+                    info.showAndWait();
+                    
+                   // onaj exit?
+                }
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(KontrolerGUIMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(KontrolerGUIMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchFieldException ex) {
+                Logger.getLogger(KontrolerGUIMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(KontrolerGUIMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 }
                 break;
         }
@@ -95,7 +142,7 @@ public class KontrolerGUIMain {
 
         } 
      
- 
+ private Set<String> zauzetaPolja = new HashSet<>();
  public void zavrsiIgruSaPorukom(String poruka)
  {  Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
     infoAlert.setTitle("Poruka:");
@@ -106,6 +153,21 @@ public class KontrolerGUIMain {
     this.fxcon.closeStage();
  }
 
+ public void postaviAkcijeNaDugmad() {
+    for (Node node : fxcon.tablica.getChildren()) {
+        if (node instanceof Button) {
+            Button dugme = (Button) node;
+            dugme.setOnAction(event -> {
+                String id = dugme.getId();
+                try {
+                    odigrajPotez(id, dugme);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+}
  
  public void prikaziRangListu() {
     try {
@@ -145,7 +207,50 @@ public class KontrolerGUIMain {
     }
 }
  
-  
+  public void odigrajPotez(String poljeId, Button polje) throws Exception {
+      if (kodIgre == 0) {
+          return; } 
+    // npr. poljeId = "p37"
+    int index = Integer.parseInt(poljeId.substring(1)); // 37
+    int red = index / 10;
+    int kolona = index % 10;
+     zauzetaPolja.add(poljeId);
+
+     polje.setText("" + oznakaIgraca); // ili "O", zavisno od igrača
+    polje.setDisable(true); // više ne može da se klikne
+    
+    // šaljemo serveru potez
+    Potez p = KontrolerKlijent.getInstance().posaljiPotez(kodIgre, red, kolona); //ovde primamo samo ako smo mi odigrali potez
+    if(p.rezultat == 3) {
+         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+    infoAlert.setTitle("Poruka:");
+    infoAlert.setHeaderText(null); 
+    infoAlert.setContentText("Pobedili ste, igra je zavrsena!"); 
+    infoAlert.showAndWait();  
+    
+    this.fxcon.closeStage(); // da li treba ovo
+    }
+    
+    
+   
+}
+
+//  public void prikaziProtivnikovPotez(int red, int kolona) {
+//    Platform.runLater(() -> {
+//        try {
+//            String poljeId = "p" + (red * 10 + kolona);
+//            Field f = FXMLDocumentController.class.getDeclaredField(poljeId);
+//            f.setAccessible(true);
+//            Button polje = (Button) f.get(fxcon);
+//            char znak = oznakaIgraca == 'X' ? 'O' : 'X';
+//            polje.setText("" + znak);
+//            polje.setDisable(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    });
+//}
+
 //  private void inicijalizujTablu() throws Exception {
 //        for (int i = 0; i < 10; i++) {
 //            for (int j = 0; j < 10; j++) {

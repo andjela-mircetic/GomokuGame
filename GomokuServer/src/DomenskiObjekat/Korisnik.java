@@ -153,7 +153,7 @@ private static final long serialVersionUID = 1L;
     @Override
     public String getUpdateQuery() {
       
-       return "brojPobeda = " + brojPobeda +1; //To change body of generated methods, choose Tools | Templates.
+       return "brojPobeda = brojPobeda + 1"; // + brojPobeda +1; 
     }
 
     @Override

@@ -254,7 +254,7 @@ public class FXMLDocumentController {
     @FXML
     public void initialize() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
        KontrolerGUIMain kngui = new KontrolerGUIMain(this);
-              
+              kngui.postaviAkcijeNaDugmad(); 
     }    
         
       public Stage stage;

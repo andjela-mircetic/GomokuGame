@@ -477,4 +477,21 @@ public void setAsyncListener(Consumer<ServerResponse> listener) {
     public Korisnik getUlogovaniKorisnik() {
         return ulogovaniKor;
     }
+
+    public Potez posaljiPotez(int kodIgre, int red, int kolona) throws Exception {
+        Potez p = new Potez(red, kolona, ulogovaniKor.idKorisnik);
+        
+        ClientRequest req = new ClientRequest();
+        req.setOperation(Operations.ODIGRAJ_POTEZ);
+        req.setData(p);
+
+        ServerResponse so = sendRequest(req); //ovde stize onom ko igra potez
+        if (so.isIsSuccess()) {
+            return (Potez) so.getParameter();
+        } else {
+            throw so.getE();
+        }
+    }
+    
+    
 }
