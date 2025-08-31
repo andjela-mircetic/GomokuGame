@@ -44,8 +44,24 @@ public class Partija  implements GenerickiDomObj, Serializable {
 
  public Partija(int sifraIgre, Long idIgrac1) {
              
+        this.sifraIgre = sifraIgre;
+        this.idIgrac1 =  idIgrac1;
+        
+       
+    }
+ 
+ public Partija(int sifraIgre, Long idIgrac2, Long idIgrac1) {
+             
+        this.sifraIgre = sifraIgre;
+        this.idIgrac1 =  idIgrac1;
+        this.idIgrac2 = idIgrac2;
+       
+    }
+ 
+  public Partija(Long idIgrac2) {
+             
         this.sifraIgre = 0;
-        this.idIgrac1 =  0L;
+        this.idIgrac2 =  idIgrac2;
         
        
     }
@@ -141,7 +157,7 @@ public class Partija  implements GenerickiDomObj, Serializable {
         return "sifraIgre,idIgrac1"; //To change body of generated methods, choose Tools | Templates.
     }
 
-  @Override
+    @Override
     public String getUnknownValues() {
         return "?,?"; //To change body of generated methods, choose Tools | Templates.
     }
@@ -151,19 +167,20 @@ public class Partija  implements GenerickiDomObj, Serializable {
             Partija p = (Partija) entity;
        // ps.setLong(1, p.getIdPartija());
         ps.setInt(1, p.getSifraIgre());
-        ps.setLong(2, p.getIdIgrac1());
+        ps.setObject(2, p.getIdIgrac1(), java.sql.Types.BIGINT);
+      //  ps.setLong(2, p.getIdIgrac1());
        // ps.setLong(3, p.getIdIgrac2());
        // ps.setLong(4, p.getIdPobednik());
     }
 
     @Override
     public String getUpdateQuery() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return "idPobednik = " + idPobednik; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getID(GenerickiDomObj entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return "sifraIgre = " + sifraIgre; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -19,6 +19,7 @@ public class DatabaseConnection {
     
     private DatabaseConnection() throws SQLException
     {
+        //Class.forname()
         String url="jdbc:mysql://127.0.0.1:3306/gomoku";
         String dbUser="root";
         String dbPassword="";

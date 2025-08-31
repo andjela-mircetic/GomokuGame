@@ -18,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import DomenskiObjekat.Operations;
+import Server_client.GenerickiKontrolerServer;
+import Server_client.GenerickiKontrolerServer_Service;
 import TransferObjekat.ClientRequest;
 import TransferObjekat.ServerResponse;
 import java.util.concurrent.CompletableFuture;
@@ -38,7 +40,7 @@ public class KontrolerKlijent {
     private ObjectInputStream in;
     private Socket socket;
     private Thread listenerThread;
-
+  
     private CompletableFuture<ServerResponse> pendingResponse;
 
     private KontrolerKlijent() {}
@@ -47,6 +49,7 @@ public class KontrolerKlijent {
         if (instance == null) {
             instance = new KontrolerKlijent();
         }
+        
         return instance;
     }
 

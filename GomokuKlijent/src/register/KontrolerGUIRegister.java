@@ -7,6 +7,8 @@ package register;
 
 import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.KontrolerKlijent;
+import Server_client.GenerickiKontrolerServer;
+import Server_client.GenerickiKontrolerServer_Service;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -21,10 +23,14 @@ import pocetna.*;
  */
 public class KontrolerGUIRegister {
           FXMLRegisterController fxcon;
-          
+                 
+     GenerickiKontrolerServer_Service service;
+     GenerickiKontrolerServer kal;
+
      public KontrolerGUIRegister(FXMLRegisterController fxcon) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
         { this.fxcon = fxcon; 
-         
+          service = new GenerickiKontrolerServer_Service();
+         kal = service.getGenerickiKontrolerServerPort();
           this.fxcon.registerBtn.setOnAction(e->registrujKorisnika(this.fxcon.username.getText(), this.fxcon.password.getText()));
          
         } 
@@ -43,8 +49,10 @@ public class KontrolerGUIRegister {
  {  
           try {  
           
-              Long kor = KontrolerKlijent.getInstance().registrujKorisnika(username, password);
-           
+            //  Long kor = KontrolerKlijent.getInstance().registrujKorisnika(username, password);
+           Long kor = kal.registrujKorisnika(username, password);
+              
+              
                   JFXPocetna pocetna;
                   
                   Stage s;

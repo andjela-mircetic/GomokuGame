@@ -5,9 +5,12 @@
  */
 package Server;
 
+import DomenskiObjekat.Korisnik;
+import SO.RegistrujKorisnika;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import SO.SystemOperation;
 
 /**
  *
@@ -16,5 +19,15 @@ import javax.jws.WebParam;
 @WebService(serviceName = "GenerickiKontrolerServer")
 public class GenerickiKontrolerServer {
 
-   
+    public Long registrujKorisnika(String username, String password) throws Exception {
+
+        Korisnik kor = new Korisnik();
+        kor.setKorisnickoIme(username);
+        kor.setSifra(password);
+       
+        SystemOperation so = new RegistrujKorisnika();
+        
+        so.templateExecute(kor);
+        return ((RegistrujKorisnika) so).getResult();
+    }
 }

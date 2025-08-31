@@ -43,7 +43,7 @@ public class JFXMain extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("CSS/stylesheet.css");
         stage.setScene(scene);
-        stage.setTitle("Ulogovani korisnik:" + korisnickoIme );
+        stage.setTitle("Ulogovani korisnik: " + korisnickoIme );
         stage.show();
         
     }

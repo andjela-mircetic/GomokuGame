@@ -13,7 +13,7 @@ import DomenskiObjekat.Korisnik;
  * @author ANDJELA
  */
 
-public class RegistrujKorisnika extends so.SystemOperation{
+public class RegistrujKorisnika extends SO.SystemOperation{
     private Long generalEntity;
     
      @Override

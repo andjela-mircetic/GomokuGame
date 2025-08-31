@@ -17,7 +17,8 @@ public interface IDBBroker {
     List<GenerickiDomObj> vratiSve(GenerickiDomObj odo) throws Exception;
     GenerickiDomObj nadji(GenerickiDomObj odo,Long id) throws Exception;
     Long sacuvaj(GenerickiDomObj odo) throws Exception;
-    void azuriraj(GenerickiDomObj odo) throws Exception;
+    int azuriraj(GenerickiDomObj odo) throws Exception;
+    Long azurirajPartije(GenerickiDomObj odo) throws Exception;
     void obrisi(GenerickiDomObj odo) throws Exception;
     GenerickiDomObj uloguj(GenerickiDomObj odo,String username,String password) throws Exception;
     Long registruj(GenerickiDomObj odo,String username,String password) throws Exception;
