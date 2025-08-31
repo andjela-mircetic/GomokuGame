@@ -35,7 +35,7 @@ public class KontrolerServer {
    int kodPartije;
    Long idPartije;
    
-   private int[][] tabla; // 0 = prazno, 1 = X, 2 = O
+   private int[][] tabla; 
     private int size = 10;
     private static KontrolerServer instance;
   
@@ -131,7 +131,7 @@ public class KontrolerServer {
     }
     
      public int zavrsiPartiju(int kod, Long idGubitnika) throws Exception {
-        // Long idPobednika = idGubitnika == idIgrac1 ? idIgrac2 : idIgrac1; NE RADI
+        
          Long idPobednika = Objects.equals(idGubitnika, idIgrac1) ? idIgrac2 : idIgrac1;
 
           Partija p = new Partija(0L, kod, 0L, 0L, idPobednika);
@@ -150,17 +150,8 @@ public class KontrolerServer {
         return ((IzmeniBrPobedaKorisnika) so).getResult();
      }
             
-
-       
-       /**
-     * Obradi potez igraca
-     * @param igracId - id korisnika koji salje potez
-     * @param x - koordinata
-     * @param y - koordinata
-     * @return 1 ako je samo dobar potez, 2 ako je pobeda
-     */
     public int odigrajPotez(Long igracId, int x, int y) {
-        int simbol = (igracId == idIgrac1) ? 1 : 2; // 1 = X, 2 = O
+        int simbol = (igracId == idIgrac1) ? 1 : 2; 
 
         if (tabla[x][y] != 0) {
             // već zauzeto mesto
@@ -209,24 +200,5 @@ public class KontrolerServer {
     }
 }
     
-    public void broadcast2(ServerResponse response, Klijent sender) {
-    for (Klijent k : lkl) {
-        if (k != sender) { // pošalji svima osim pošiljaocu
-            try {
-                k.posaljiOdgovor(response);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
     
-    //server treba da obavesti sve kljente u slucju:
-    //dodat drugi igrac, zavrsi igru, odigraj potez
-    //implementiraj kako korisnik zna koji je igrac napustio igru
-    //prvo disable dugme pa salji request
-    
-    //neki odvojeni listener koji uvek slusa sve zahteve? 3 tipa = dodat vam je suparnik, pobedili ste jer je izasao, izgubili ste jer je dobar potez drugog
-    //kako da zna dal je x ili o, server zna jel je on id1 ili 2, i on zna jer se pridruzio ?  isto ima jedan id null
-    //kako cu znati koju poziciju je kliknuo
 }
