@@ -167,6 +167,11 @@ public class KontrolerGUIMain {
 
     } catch (Exception ex) {
         ex.printStackTrace();
+                        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+    infoAlert.setTitle("Poruka:");
+    infoAlert.setHeaderText(null); 
+    infoAlert.setContentText("Ne moze se prikazati rang lista korisnika!"); 
+    infoAlert.showAndWait(); 
     }
 }
  
@@ -186,6 +191,12 @@ public class KontrolerGUIMain {
 
     } catch (Exception ex) {
         ex.printStackTrace();
+                 Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+    infoAlert.setTitle("Poruka:");
+    infoAlert.setHeaderText(null); 
+    infoAlert.setContentText("Ne moze se prikazati istorija igara!"); 
+    infoAlert.showAndWait();  
+    
     }
 }
  
