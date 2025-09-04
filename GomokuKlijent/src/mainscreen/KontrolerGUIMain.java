@@ -6,7 +6,7 @@
 package mainscreen;
 
 import DomenskiObjekat.GenerickiDomObj;
-import DomenskiObjekat.KontrolerKlijent;
+import kontroler.KontrolerKlijent;
 import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.Operations;
 import DomenskiObjekat.Partija;

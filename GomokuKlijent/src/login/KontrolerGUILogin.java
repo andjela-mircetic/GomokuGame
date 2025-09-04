@@ -6,7 +6,7 @@
 package login;
 
 import DomenskiObjekat.Korisnik;
-import DomenskiObjekat.KontrolerKlijent;
+import kontroler.KontrolerKlijent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;

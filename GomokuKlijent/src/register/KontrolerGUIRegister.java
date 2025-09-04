@@ -6,7 +6,7 @@
 package register;
 
 import DomenskiObjekat.Korisnik;
-import DomenskiObjekat.KontrolerKlijent;
+import kontroler.KontrolerKlijent;
 import Server_client.GenerickiKontrolerServer;
 import Server_client.GenerickiKontrolerServer_Service;
 import java.util.logging.Level;

@@ -1,6 +1,6 @@
 package pocetna;
 
-import DomenskiObjekat.KontrolerKlijent;
+import kontroler.KontrolerKlijent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

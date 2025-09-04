@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package DomenskiObjekat;
+package kontroler;
 
+import DomenskiObjekat.GenerickiDomObj;
+import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.Korisnik;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,6 +20,9 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import DomenskiObjekat.Operations;
+import DomenskiObjekat.Operations;
+import DomenskiObjekat.Partija;
+import DomenskiObjekat.Potez;
 import Server_client.GenerickiKontrolerServer;
 import Server_client.GenerickiKontrolerServer_Service;
 import TransferObjekat.ClientRequest;
@@ -226,7 +231,7 @@ public void setAsyncListener(Consumer<ServerResponse> listener) {
     }
 
     public Potez posaljiPotez(int kodIgre, int red, int kolona) throws Exception {
-        Potez p = new Potez(red, kolona, ulogovaniKor.idKorisnik);
+        Potez p = new Potez(red, kolona, ulogovaniKor.getIDKorisnik());
         
         ClientRequest req = new ClientRequest();
         req.setOperation(Operations.ODIGRAJ_POTEZ);
