@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DomenskiObjekat;
+package TransferObjekat;
 
+import DomenskiObjekat.GenerickiDomObj;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

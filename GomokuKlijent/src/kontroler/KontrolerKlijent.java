@@ -6,6 +6,7 @@
 
 package kontroler;
 
+import TransferObjekat.Potez;
 import DomenskiObjekat.GenerickiDomObj;
 import DomenskiObjekat.Korisnik;
 import DomenskiObjekat.Korisnik;
@@ -19,10 +20,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import DomenskiObjekat.Operations;
-import DomenskiObjekat.Operations;
+import TransferObjekat.Operations;
+import TransferObjekat.Operations;
 import DomenskiObjekat.Partija;
-import DomenskiObjekat.Potez;
 import Server_client.GenerickiKontrolerServer;
 import Server_client.GenerickiKontrolerServer_Service;
 import TransferObjekat.ClientRequest;

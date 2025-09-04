@@ -14,9 +14,9 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import DomenskiObjekat.Operations;
+import TransferObjekat.Operations;
 import DomenskiObjekat.Partija;
-import DomenskiObjekat.Potez;
+import TransferObjekat.Potez;
 import TransferObjekat.ClientRequest;
 import TransferObjekat.ServerResponse;
 
