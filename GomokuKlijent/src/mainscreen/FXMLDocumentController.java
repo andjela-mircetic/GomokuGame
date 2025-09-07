@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -254,7 +255,10 @@ public class FXMLDocumentController {
     @FXML
     public void initialize() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, Exception {
        KontrolerGUIMain kngui = new KontrolerGUIMain(this);
+       kngui.postaviIdjeve();
               kngui.postaviAkcijeNaDugmad(); 
+              
+
     }    
         
       public Stage stage;

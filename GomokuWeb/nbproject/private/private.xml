@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/Database/DatabaseBroker.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/Server/GenerickiKontrolerServerPort.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/Database/IDBBroker.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/Server/GenerickiKontrolerServer.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/SO/SystemOperation.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/Database/DatabaseConnection.java</file>
+            <file>file:/C:/Users/ANDJELA/Desktop/Softverski%20proces%2038062024/GomokuWeb/src/java/SO/RegistrujKorisnika.java</file>
+        </group>
     </open-files>
 </project-private>

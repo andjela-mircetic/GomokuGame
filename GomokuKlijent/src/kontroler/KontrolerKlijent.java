@@ -77,7 +77,7 @@ public class KontrolerKlijent {
                         if (pendingResponse != null) {
                             pendingResponse.complete(so);
                             pendingResponse = null;
-                            System.out.println("odgovor na postojeci response" + so.getOperation());
+                           // System.out.println("odgovor na postojeci response" + so.getOperation());
                         } else {
                             handleAsyncResponse(so); // Asinhrona poruka (notifikacija)
                         }
@@ -107,18 +107,18 @@ public void setAsyncListener(Consumer<ServerResponse> listener) {
         
             case Operations.ZAVRSI_PARTIJU:
                 if (so.isIsSuccess()) {
-                    System.out.println("handle async: Partija završena. Rezultat: " + so.getParameter());
+                   // System.out.println("handle async: Partija završena. Rezultat: " + so.getParameter());
                 }
                 break;
                  case Operations.PRIDRUZI_SE_PARTIJI:
                 if (so.isIsSuccess()) {
-                    System.out.println("hanle async: Pridruzi se partiji. Rezultat: " + so.getParameter());
+                  //  System.out.println("hanle async: Pridruzi se partiji. Rezultat: " + so.getParameter());
                 }
                 break;
                  case Operations.ODIGRAJ_POTEZ:
                      
                       if (so.isIsSuccess()) {
-                    System.out.println("hanle async: Pridruzi se partiji. Rezultat: " + so.getParameter());
+                   // System.out.println("hanle async: Pridruzi se partiji. Rezultat: " + so.getParameter());
                 }
                      
                      break;
@@ -237,6 +237,7 @@ public void setAsyncListener(Consumer<ServerResponse> listener) {
         req.setOperation(Operations.ODIGRAJ_POTEZ);
         req.setData(p);
 
+        
         ServerResponse so = sendRequest(req); //ovde stize onom ko igra potez
         if (so.isIsSuccess()) {
             return (Potez) so.getParameter();

@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import login.FXMLLoginController;
 
@@ -86,6 +87,7 @@ public class KontrolerGUIMain {
             try {
                 Potez protivnikov = (Potez) so.getParameter();
               String poljeId = String.format("p%02d", protivnikov.x * 10 + protivnikov.y);
+              System.out.println("Primio potez: id=" + poljeId + " red=" + protivnikov.x + " kolona=" + protivnikov.y);
                     if (zauzetaPolja.contains(poljeId)) {
                  break;
                  }
@@ -150,6 +152,23 @@ public class KontrolerGUIMain {
         }
     }
 }
+  public void postaviIdjeve() {
+               //  int red = 0, kolona = 0;
+    for (Node node : fxcon.tablica.getChildren()) {
+        if (node instanceof Button) {
+             Button dugme = (Button) node;
+            Integer r = GridPane.getRowIndex(dugme);
+            Integer c = GridPane.getColumnIndex(dugme);
+
+            if (r == null) r = 0;
+            if (c == null) c = 0;
+
+            String id = "p" + r + c;
+            dugme.setId(id);
+            System.out.println("Postavljen ID: " + id);
+        }
+    }
+  }
  
  public void prikaziRangListu() {
     try {
@@ -212,7 +231,7 @@ public class KontrolerGUIMain {
      polje.setText("" + oznakaIgraca); 
     polje.setDisable(true);
     
-  
+  System.out.println("Šaljem potez: id=" + poljeId + " red=" + red + " kolona=" + kolona);
     Potez p = KontrolerKlijent.getInstance().posaljiPotez(kodIgre, red, kolona); 
     if(p.rezultat == 3) {
          Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);

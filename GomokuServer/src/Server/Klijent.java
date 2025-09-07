@@ -295,7 +295,7 @@ private ServerResponse obradiZahtev(ClientRequest kz) throws IOException {
                         }
                         if (rezultat != 0) {
                             Potez prez = new Potez(potez.x, potez.y, potez.idKorisnika, rezultat);
-                                System.out.println("odigran potez");
+                                System.out.println("odigran potez " + potez.x + potez.y);
                                 response.setIsSuccess(true);
                                 response.setParameter(prez);
                                 response.setOperation(Operations.ODIGRAJ_POTEZ);
